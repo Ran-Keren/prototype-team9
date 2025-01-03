@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.PrimaryController">
    <children>
       <Button fx:id="MenutBtn" layoutX="150.0" layoutY="117.0" mnemonicParsing="false" onAction="#displayMenuFunc" text="Menu" />
@@ -15,5 +14,6 @@
             <Font size="19.0" />
          </font>
       </Label>
+      <Button fx:id="editCheckButton" layoutX="47.0" layoutY="143.0" mnemonicParsing="false" onAction="#editMenu" text="editCheck" />
    </children>
 </AnchorPane>

@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -31,6 +33,9 @@ public class MenuItemsController {
     @FXML
     private TableColumn<MenuItem, String> preferenceColumn;
 
+    private List<MenuItem> menuDishes;
+
+    public MenuItemsController() {};
     public void initialize() {
         // הגדרת העמודות
         itemIDColumn.setCellValueFactory(new PropertyValueFactory<>("itemID"));
@@ -42,16 +47,20 @@ public class MenuItemsController {
         // טוען נתונים למסד הנתונים
         loadMenuItems();
     }
-
     private void loadMenuItems() {
         // קבלת נתונים ממסד הנתונים
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<MenuItem> menuItems = session.createQuery("FROM MenuItem", MenuItem.class).list();
+        this.menuDishes = menuItems;
         session.close();
 
         // הוספת נתונים לטבלה
         ObservableList<MenuItem> menuItemsList = FXCollections.observableArrayList(menuItems);
+        assert menuItemsTable != null;
         menuItemsTable.setItems(menuItemsList);
+    }
+    public List<MenuItem> getMenuItems() {
+       return menuDishes;
     }
 }
 
