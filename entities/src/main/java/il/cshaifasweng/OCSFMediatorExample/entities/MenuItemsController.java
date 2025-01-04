@@ -1,23 +1,22 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import java.util.List;
 
-import org.hibernate.Session;
-
-
-
 public class MenuItemsController {
+    @FXML
+    private TableView<MenuItem> menuTable;
 
     @FXML
-    private TableView<MenuItem> menuItemsTable;
-
-    @FXML
-    private TableColumn<MenuItem, Integer> itemIDColumn;
+    private TableColumn<MenuItem, Integer> itemIdColumn;
 
     @FXML
     private TableColumn<MenuItem, String> nameColumn;
@@ -28,30 +27,28 @@ public class MenuItemsController {
     @FXML
     private TableColumn<MenuItem, String> ingredientsColumn;
 
-    @FXML
-    private TableColumn<MenuItem, String> preferenceColumn;
+    private ObservableList<MenuItem> menuItems;
 
+    @FXML
     public void initialize() {
-        // הגדרת העמודות
-        itemIDColumn.setCellValueFactory(new PropertyValueFactory<>("itemID"));
+        // הגדרת עמודות
+        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("itemID"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         ingredientsColumn.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-        preferenceColumn.setCellValueFactory(new PropertyValueFactory<>("preference"));
 
-        // טוען נתונים למסד הנתונים
-        loadMenuItems();
+        // הבאת נתונים מבסיס הנתונים
+        fetchMenuItems();
     }
 
-    private void loadMenuItems() {
-        // קבלת נתונים ממסד הנתונים
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List<MenuItem> menuItems = session.createQuery("FROM MenuItem", MenuItem.class).list();
-        session.close();
-
-        // הוספת נתונים לטבלה
-        ObservableList<MenuItem> menuItemsList = FXCollections.observableArrayList(menuItems);
-        menuItemsTable.setItems(menuItemsList);
+    private void fetchMenuItems() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        try (Session session = sessionFactory.openSession()) {
+            List<MenuItem> items = session.createQuery("from MenuItem", MenuItem.class).list();
+            menuItems = FXCollections.observableArrayList(items);
+            menuTable.setItems(menuItems);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
-

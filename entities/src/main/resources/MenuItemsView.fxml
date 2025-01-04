@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0">
-    <TableView fx:id="menuItemsTable" layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="572.0">
-        <columns>
-            <TableColumn fx:id="itemIDColumn" text="Item ID" prefWidth="100"/>
-            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
-            <TableColumn fx:id="priceColumn" text="Price" prefWidth="100"/>
-            <TableColumn fx:id="ingredientsColumn" text="Ingredients" prefWidth="200"/>
-            <TableColumn fx:id="preferenceColumn" text="Preference" prefWidth="150"/>
-        </columns>
-    </TableView>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.entities.MenuItemsController">
+    <children>
+        <TableView fx:id="menuTable" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="itemIdColumn" prefWidth="75.0" text="Item ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
+                <TableColumn fx:id="priceColumn" prefWidth="100.0" text="Price" />
+                <TableColumn fx:id="ingredientsColumn" prefWidth="275.0" text="Ingredients" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>
-
